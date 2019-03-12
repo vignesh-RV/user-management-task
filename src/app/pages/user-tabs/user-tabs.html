@@ -1,0 +1,48 @@
+
+<div class="edit-user-content">
+
+  <mat-card>
+    <mat-card-title>
+      <strong> Users Based On Role</strong>
+    </mat-card-title>
+    <mat-card-content>
+      <div *ngFor="let role of allRoles">
+        <div class="header-section">{{role}}<span [matBadge]="(users | filterbyrole:role).length" matBadgeOverlap="false"></span></div>
+        <div class="list-section">
+            <div cdkDropList id="userTabs_{{role}}" [cdkDropListConnectedTo]="['normaluserlist', (role == 'admin' ? 'userTabs_moderate' : 'userTabs_admin') ]" class="example-list mt-20"  [cdkDropListData]="users | filterbyrole:role" (cdkDropListDropped)="drop($event, role)">  
+              <div class="example-box drag-content drag-icon" *ngFor="let user of users | filterbyrole:role, index as i" cdkDrag>
+                <div class="drag-index">{{i+1}}</div>
+                <div>{{user.fullname}}</div>
+                <div>{{user.role}}</div>
+                <div class="w-10 delete-icon">
+                  <button mat-icon-button>
+                    <i class="material-icons" (click)="deleteUser(user.id)">delete_outline</i>
+                  </button>
+                </div>
+              </div>
+              <p *ngIf="!(users | filterbyrole:role).length">No Users found...</p>
+            </div>
+        </div>
+      </div>
+      <!-- <mat-tab-group>
+        <mat-tab *ngFor="let role of allRoles" [label]="role">
+            <div cdkDropList id="userTabs_{{role}}" cdkDropListConnectedTo="normaluserlist" class="example-list mt-20"  [cdkDropListData]="users | filterbyrole:role" (cdkDropListDropped)="drop($event, role)">  
+              <div class="example-box drag-content drag-icon" *ngFor="let user of users | filterbyrole:role, index as i" cdkDrag>
+                <div class="drag-index">{{i+1}}</div>
+                <div>{{user.fullname}}</div>
+                <div>{{user.role}}</div>
+                <div class="w-10 delete-icon">
+                  <button mat-icon-button>
+                    <i class="material-icons" (click)="deleteUser(user.id)">delete_outline</i>
+                  </button>
+                </div>
+              </div>
+              <p *ngIf="!(users | filterbyrole:role).length">No Users found...</p>
+            </div>
+        </mat-tab>
+      </mat-tab-group> -->
+    </mat-card-content>
+  </mat-card>
+
+</div>
+  

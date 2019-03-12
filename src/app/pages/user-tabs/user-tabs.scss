@@ -13,7 +13,12 @@
     display: flex;
     align-items: center;
   }
-  
+  .drag-icon {
+    position: relative;
+  }
+  .drag-icon i {
+    cursor: move;
+  }
   i.disable{
     position: absolute;
     cursor: not-allowed !important;
