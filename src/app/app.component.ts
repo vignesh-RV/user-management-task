@@ -54,6 +54,7 @@ export class AppComponent {
   }
 
   addNewuser(): any{
+    this.util.selectedUserData = {};
     this.util.redirectTo("edit-user");
   }
 }

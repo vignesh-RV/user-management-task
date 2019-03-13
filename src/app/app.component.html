@@ -1,30 +1,16 @@
 <div class="row" id="user-management-container">
-  <div class="col-lg-6 col-sm-12" id="left-side-user-container">
-      <mat-card>
-          <mat-card-title>
-            <strong>Normal Users<span [matBadge]="(users | filterbyrole:'normal').length" matBadgeOverlap="false"></span></strong>
-            <button class="float-right" mat-mini-fab color="warn" (click)="addNewuser()"><i class="material-icons">add_circle</i></button>
-          </mat-card-title>
-          <mat-card-content>
-        
-        <div cdkDropList id="normaluserlist" [cdkDropListConnectedTo]="['userTabs_admin', 'userTabs_moderate']" class="example-list mt-20" [cdkDropListData]="users | filterbyrole:'normal'" (cdkDropListDropped)="drop($event)">  
-          <div class="example-box drag-content drag-icon" *ngFor="let user of users | filterbyrole:'normal', index as i" cdkDrag>
-            <div class="drag-index">{{i+1}}</div>
-            <div>{{user.fullname}}</div>
-            <div>{{user.role}}</div>
-            <div class="w-10 delete-icon">
-              <button mat-icon-button>
-                <i class="material-icons" (click)="deleteUser(user.id)">delete_outline</i>
-              </button>
-            </div>
-          </div>
-          <p *ngIf="!((users | filterbyrole:'normal').length)">No Users found...</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
+  <div class="col-lg-12 app-title">
+      <strong> Users Managment <span [matBadge]="users.length" matBadgeOverlap="false"></span></strong>
+      <button title="Add New User" class="float-right" mat-mini-fab color="primary" (click)="addNewuser()"><i class="material-icons">add_circle</i></button>
   </div>
-  <div class="col-lg-6 col-sm-12" id="right-side-user-container">
+  <div class="col-lg-6 col-sm-12 pl-0" id="left-side-user-container">
+      <mat-card>
+         <mat-card-content>
+            <drag-and-drop [role]="'normal'" [users]="users | filterbyrole:'normal'"></drag-and-drop>
+        </mat-card-content>
+      </mat-card>
+  </div>
+  <div class="col-lg-6 col-sm-12 pr-0" id="right-side-user-container">
     <router-outlet></router-outlet>
   </div>
-  <strong>Total Users => {{users.length}}</strong>
 </div>

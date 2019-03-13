@@ -15,6 +15,16 @@ export class EditUser {
   allRoles:any[] = [];
 
   constructor(private util: UtilService){
+    util.updatedSelectedUserData.subscribe((newData: boolean)=>{
+      if(newData){
+        this.getDataAndCreateForm();
+      }
+    });
+
+    this.getDataAndCreateForm();
+  }
+
+  getDataAndCreateForm(): any{
     this.selectedUserData = this.util.selectedUserData;
     this.allRoles = this.util.allRoles;
 
@@ -24,7 +34,7 @@ export class EditUser {
       id: new FormControl( this.selectedUserData.id || 0),
       fullname: new FormControl( this.selectedUserData.fullname || '', [Validators.required]),
       address: new FormControl(this.selectedUserData.address || ''),
-      email: new FormControl(this.selectedUserData.email || '', [Validators.required, Validators.email]),
+      email: new FormControl({ value: this.selectedUserData.email || '', disabled: !this.isNewUser}, [Validators.required, Validators.email]),
       phone: new FormControl(this.selectedUserData.phone || ''),
       role: new FormControl(this.selectedUserData.role || 'normal', [Validators.required])
     });
@@ -40,6 +50,7 @@ export class EditUser {
       this.util.addUser(userData).then((response)=>{
         if(response){
           this.util.alert(1, "add_success_message");
+          this.util.updateUsersListInUI.next(true);
           this.util.redirectTo("user-list");
         }else this.util.alert(2, "duplicate_error_message");
       });
@@ -47,9 +58,15 @@ export class EditUser {
       this.util.updateUser(userData).then((response)=>{
         if(response){
           this.util.alert(1, "update_success_message");
+          this.util.updateUsersListInUI.next(true);
           this.util.redirectTo("user-list");
         }else this.util.alert(2, "error_message");
       });
     }
+  }
+
+  cancel(): any{
+    this.util.selectedUserData = {};// resetting the user data
+    this.util.redirectTo("user-list");
   }
 }

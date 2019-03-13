@@ -21,33 +21,7 @@ export class UserTabs {
     });
   }
   
-  drop(event: CdkDragDrop<string[]>, role?:string) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      // Changing the role value
-      let currentElement:any = event.previousContainer.data[event.previousIndex];
-      if(currentElement && currentElement.id){
-        currentElement.role = role;
-        this.util.updateUser(currentElement);
-      }
-      // Checking for the max value
-      if(event.container.data && event.container.data.length > 10){
-        this.util.alert(1, "max_limit_message");
-        return;
-      }
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-    }
-  }
-
-  deleteUser(userId: any) {
-    this.util.deleteUser(userId).then((response)=>{
-      if(response){
-        this.util.alert(1, "delete_success_message");
-      }else this.util.alert(2, "error_message");
-    });
+  getUpdatedUsersList(): any{
+    return this.util.getAllUsersList();
   }
 }

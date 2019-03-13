@@ -11,10 +11,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { UserTabs } from './pages/user-tabs/user-tabs';
 import { FilterByRole } from './pipes/filter-by-role-pipe';
+import { DragAndDrop } from './components/drag-and-drop/drag-and-drop';
 
 @NgModule({
   declarations: [
-    AppComponent, EditUser, UserTabs, FilterByRole
+    AppComponent, EditUser, UserTabs, FilterByRole, DragAndDrop
   ],
   imports: [
     BrowserModule,

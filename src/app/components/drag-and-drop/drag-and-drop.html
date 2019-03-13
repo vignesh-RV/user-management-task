@@ -1,0 +1,17 @@
+<div class="header-section">{{role}}<span [matBadge]="users.length" matBadgeOverlap="false"></span></div>
+<div #cdkDropList cdkDropList id="userTabs_{{role}}" [cdkDropListConnectedTo]="['userTabs_normal', 'userTabs_moderate', 'userTabs_admin' ]" class="draggable-list mt-20"  [cdkDropListData]="users" (cdkDropListDropped)="drop($event, role)">  
+  <div class="drag-item-box drag-content drag-icon" *ngFor="let user of users, index as i" cdkDrag>
+    <div class="drag-index">{{i+1}}</div>
+    <div>{{user.fullname}}</div>
+    <div>{{user.role}}</div>
+    <div class="w-10 delete-icon">
+      <button mat-icon-button>
+        <i class="material-icons" (click)="EditUser(user)">edit_outline</i>
+      </button>
+      <button mat-icon-button>
+        <i class="material-icons" (click)="deleteUser(user.id)">delete_outline</i>
+      </button>
+    </div>
+  </div>
+  <strong class="text-danger" *ngIf="!(users).length">No Users found...</strong>
+</div>

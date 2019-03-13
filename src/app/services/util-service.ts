@@ -13,6 +13,7 @@ export class UtilService {
     public allRoles:any[] = ["admin", "moderate", "normal"];
 
     public updateUsersListInUI:any = new Subject();
+    public updatedSelectedUserData:any = new Subject();
 
     constructor(private router: Router, private toastr: ToastrService) {
     }
@@ -41,8 +42,8 @@ export class UtilService {
         return new Promise((resolve, reject) => {
             var users = this.getAllUsersList();
             if (users && users.length) {
-                var userIndex = users.findIndex((user: User) => {
-                    return user.email == user.email;
+                var userIndex = users.findIndex((userdata: User) => {
+                    return user.email == userdata.email;
                 });
 
                 if (userIndex == -1) {
@@ -103,7 +104,6 @@ export class UtilService {
 
     updateUsersList(users:any): any{
         localStorage.setItem("usersList", this.encodeData(users));
-        this.updateUsersListInUI.next(true);
     }
 
     encodeData(data:any): any{
